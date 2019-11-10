@@ -5,9 +5,11 @@ var router = express.Router();
 var note_controller = require('../controllers/noteController');
 var user_controller = require('../controllers/userController');
 
-/* GET users listing. */
+/// NOTE ROUTES ///
+
+/* GET notes listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a user resource');
+  res.send('respond with a notes resource');
 });
 
 module.exports = router;
