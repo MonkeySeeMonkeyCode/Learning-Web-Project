@@ -5,9 +5,13 @@ var router = express.Router();
 var note_controller = require('../controllers/noteController');
 var user_controller = require('../controllers/userController');
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a user resource');
-});
+/* GET list of users. */
+router.get('/', user_controller.user_list);
+
+/* GET create user form */
+router.get('/create', user_controller.user_create_get);
+
+/* POST create user form */
+router.post('/create', user_controller.user_create_post);
 
 module.exports = router;

@@ -4,12 +4,14 @@ var mongoose = require('mongoose');
 // define a schema
 var Schema = mongoose.Schema;
 
-var UserSchema = new Schema ({
-    name: {type: String, required: true, max: 100},
-    nickname: {type: String},
-    created: {type: Date},
-    active: {type: Boolean},
-});
+var UserSchema = new Schema (
+    {
+        name: {type: String, required: true, max: 100},
+        nickname: {type: String},
+        created: {type: Date},
+        active: {type: Boolean},
+    }
+);
 
 //virtual
 
@@ -26,6 +28,6 @@ UserSchema
     return '/user/' + this._id;
 });
 
-// compile model from schema
-var User = mongoose.model('User', UserSchema );
+// export model
+module.exports = mongoose.model('User', UserSchema );
 

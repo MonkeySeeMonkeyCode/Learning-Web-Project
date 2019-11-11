@@ -15,6 +15,8 @@ var notesRouter = require('./routes/notes');
 var app = express();
 
 //Set up mongoose connection
+//new data base to connect?
+//mongodb+srv://Bmin:<password>@cluster0-h1wp1.mongodb.net/test?retryWrites=true&w=majority
 var mongoDB = 'mongodb+srv://dbUser:dbUser@cluster0-klzqi.mongodb.net/test?retryWrites=true&w=majority';
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true });
 var db = mongoose.connection;
