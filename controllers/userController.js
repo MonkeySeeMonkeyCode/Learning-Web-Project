@@ -3,8 +3,14 @@ const { body,validationResult } = require('express-validator');
 const { sanitizeBody } = require('express-validator');
 
 // display list of users
-exports.user_list = function(req, res) {
-    res.send('to impliment users list');
+exports.user_list = function(req, res, next) {
+    
+    User.find()
+    .exec(function (err, list_user) {
+        if (err) { return next(err); }
+        // successful so render
+        res.render('user_list', { title: 'User List', user_list: list_user });
+    })
 };
 
 // display detail page for a specific user
@@ -21,10 +27,10 @@ exports.user_create_get = function(req, res, next) {
 exports.user_create_post = [
 
     // validate fields
-    body('name').isLength({ min: 1 }).trim().withMessage('Name must be specified.')
-        .isAlphanumeric().withMessage('Name has non-alphanumberic characters.'),
-    body('nickname').isLength({ min: 1 }).trim().withMessage('Nickname must be specified')
-        .isAlphanumeric().withMessage('Nickname has non-alphanumeric characters.'),
+    body('name').isLength({ min: 1 }).trim().withMessage('Name must be specified.'),
+        // .isAlphanumeric().withMessage('Name has non-alphanumberic characters.'),
+    body('nickname').isLength({ min: 1 }).trim().withMessage('Nickname must be specified'),
+        // .isAlphanumeric().withMessage('Nickname has non-alphanumeric characters.'),
 
     // sanitize fields
     sanitizeBody('name').escape(),
