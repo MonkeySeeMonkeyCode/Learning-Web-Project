@@ -14,8 +14,21 @@ exports.user_list = function(req, res, next) {
 };
 
 // display detail page for a specific user
-exports.user_detail = function(req, res) {
-    res.send('to impliment user detail for ' + req.params.id);
+exports.user_detail = function(req, res, next) {
+    User.findById(req.params.id).exec(function (err, results) {
+        if (err) {
+            // error in API usuage
+            return next(err);
+        };
+        if (results.user==null) {
+            // no results
+            var err = new Error('User not found');
+            err.status = 404;
+            return next(err);
+        }
+        // successful so render
+        res.render('user_detail', { title: 'User detail', user: results.user});
+    });
 };
 
 // display user create form on GET

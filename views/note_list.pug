@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  h1=title
+
+  ul
+    each note in note_list
+      li
+        a(href=note.noteurl) #{note.summary}
+        p(style="margin-left: 15px") #{note.message}
+        p(style="margin-left: 15px") Created by: #[a(href=note.userurl) #{note.createdby}] on #[ #{note.created}]

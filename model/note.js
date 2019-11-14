@@ -19,5 +19,11 @@ NoteSchema
     return (today - this.created).toString();
 });
 
+NoteSchema
+.virtual('url')
+.get(function () {
+    return ('/notes/' + this._id);
+});
+
 // compile model from schema
 var Note = mongoose.model('Note', NoteSchema );
