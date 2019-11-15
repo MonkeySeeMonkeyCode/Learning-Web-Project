@@ -16,7 +16,8 @@ var app = express();
 
 //Set up mongoose connection
 //new data base to connect?
-var mongoDB = 'mongodb+srv://Bmin:Bmin@cluster0-h1wp1.mongodb.net/test?retryWrites=true&w=majority';
+var dev_db_url = 'mongodb+srv://Bmin:Bmin@cluster0-h1wp1.mongodb.net/test?retryWrites=true&w=majority';
+var mongoDB = process.env.MONGODB_URI || dev_db_url;
 // var mongoDB = 'mongodb+srv://dbUser:dbUser@cluster0-klzqi.mongodb.net/test?retryWrites=true&w=majority';
 mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true });
 var db = mongoose.connection;
