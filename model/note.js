@@ -4,13 +4,17 @@ var mongoose = require('mongoose');
 // define schema
 var Schema = mongoose.Schema;
 
-var NoteSchema = new Schema ({
-    summary: {type: String, required: true},
-    message: {type: String, required: true},
-    created: {type: Date},
-    createdby: { type: Schema.Types.ObjectID, ref: 'User'},
-    active: {type: Boolean},
-});
+var NoteSchema = new Schema (
+    {
+        summary: {type: String, required: true},
+        message: {type: String, required: true},
+        created: {type: Date},
+        createdby: { type: Schema.Types.ObjectID, ref: 'User'},
+        active: {type: Boolean},
+    }
+);
+
+// virtual
 
 NoteSchema
 .virtual('sincecreated')
@@ -25,5 +29,5 @@ NoteSchema
     return ('/notes/' + this._id);
 });
 
-// compile model from schema
-var Note = mongoose.model('Note', NoteSchema );
+// export model
+module.exports = mongoose.model('Note', NoteSchema );

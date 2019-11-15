@@ -13,7 +13,7 @@ var UserSchema = new Schema (
     }
 );
 
-//virtual
+// virtual
 
 UserSchema
 .virtual('sincecreated')
@@ -25,7 +25,7 @@ UserSchema
 UserSchema
 .virtual('url')
 .get(function () {
-    return '/user/' + this._id;
+    return '/users/' + this._id;
 });
 
 // export model

@@ -1,0 +1,21 @@
+extend layout
+
+block content
+  h1=title
+  form(method='POST' action='')
+    div.form-group
+        label(for='summary') Title:
+        input#summary.form-control(type='text' placeholder='Title' name='summary' required='true' value=(undefined===note ? '' : note.summary) )
+        label(for='message') Details:
+        textarea#summary.form-control(type='textarea' placeholder='Leave a message!' name='message' rows='3' required='true' value=(undefined===note ? '' : note.message) )
+        label(for='createby') Author:
+        select#createby.form-control(type='select' placeholder='Select author' name='createby' required='true' )
+          for user in users
+            option(
+              value=user._id
+            ) #{user.name}
+    button.btn.btn-primary(type='submit') Submit
+  if errors
+    ul
+      for error in errors
+        li!= error.msg

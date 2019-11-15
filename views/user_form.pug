@@ -9,6 +9,11 @@ block content
       input#name.form-control(type='text' placeholder='Name' name='name' required='true' value=(undefined===user ? '' : user.name))
       label(for='nickname') Nickname:
       input#nickname.form-control(type='text' placeholder ='Nickname' name='nickname' required='true' value=(undefined===user ? '' : user.nickname))
+
+      input#created.form-control(type='hidden' name='created' value=(undefined===user ? '' : user.created))
+      //- input#active.form-control(type='hidden' name='active' value=(undefined===user ? '' : true))
+      //- need to look up how to pass booleans
+
     button.btn.btn-primary(type='submit') Submit
   if errors
     ul

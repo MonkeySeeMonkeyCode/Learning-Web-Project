@@ -20,14 +20,14 @@ exports.user_detail = function(req, res, next) {
             // error in API usuage
             return next(err);
         };
-        if (results.user==null) {
+        if (results==null) {
             // no results
             var err = new Error('User not found');
             err.status = 404;
             return next(err);
         }
         // successful so render
-        res.render('user_detail', { title: 'User detail', user: results.user});
+        res.render('user_detail', { title: 'User detail', user: results});
     });
 };
 
@@ -94,10 +94,58 @@ exports.user_delete_post = function(req, res) {
 
 // display user update form on GET
 exports.user_update_get = function(req, res) {
-    res.send('to impliment user update GET');
+    // res.send('to impliment user update GET ' + req.params.id);
+    User.findById(req.params.id)
+    .exec(function(err, user) {
+        if(err) { 
+            return next(err);
+        }
+        res.render('user_form', { title: 'Update user', user: user});
+    });
 };
 
 // handle user update on POST
-exports.user_update_post = function(req, res) {
-    res.send('to impliment user create POST');
-};
+exports.user_update_post = [
+
+    // validate fields
+    body('name').isLength({ min: 1 }).trim().withMessage('Name must be specified.'),
+        // .isAlphanumeric().withMessage('Name has non-alphanumberic characters.'),
+    body('nickname').isLength({ min: 1 }).trim().withMessage('Nickname must be specified'),
+        // .isAlphanumeric().withMessage('Nickname has non-alphanumeric characters.'),
+
+    // sanitize fields
+    sanitizeBody('name').escape(),
+    sanitizeBody('nickname').escape(),
+
+    // process request after validation and sanitiziation
+    (req, res, next) => {
+
+        // extract the validation errors from a request.
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            // there are errors, render form again with sanitized values/error messages.
+            res.render('user_form', { title: 'Create User', user: req.body, errors: errors.array() });
+            return;
+        }
+        else {
+            // date from form is valid.
+
+            // createa a User object with escaped and trimmed data.
+            var user = new User(
+                {
+                    name: req.body.name,
+                    nickname: req.body.nickname,
+                    created: req.body.created,
+                    active: true, // need to look up how to pass booleans, for now will hard code it
+                    _id: req.params.id // need to use old id so new id wont be assigned
+                }
+                );
+            User.findByIdAndUpdate(req.params.id, user, {}, function (err) {
+                if (err) {return next(err); }
+                // successful - redirect to user lists.
+                res.redirect('/users');
+            });
+        }
+    }
+];

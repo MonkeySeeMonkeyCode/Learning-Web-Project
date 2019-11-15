@@ -1,6 +1,21 @@
 extends layout
 
 block content
-  h1=title
+  h2=title
 
+  p(style="margin-left: 15px") Name: #{user.name}
+  p(style="margin-left: 15px") Nickname: #{user.nickname}
+  br
+  p(style="margin-left: 15px") ID: #{user._id}
+  p(style="margin-left: 15px") Created: #{user.created}
+  //- p(style="margin-left: 15px") Tenure: #{user.sincecreated}
+  p(style="margin-left: 15px") Active: #{user.active}
+
+  hr
+  p
+    a(href=user._id+'/update') Update User
+  //- p
+    a(href=user._id+'/archive') Archive User
+  p
+    a(href=user._id+'/delete') Delete User
   

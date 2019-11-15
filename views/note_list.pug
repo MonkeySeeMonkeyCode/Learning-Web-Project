@@ -6,6 +6,6 @@ block content
   ul
     each note in note_list
       li
-        a(href=note.noteurl) #{note.summary}
+        a(href=note.url) #{note.summary}
         p(style="margin-left: 15px") #{note.message}
-        p(style="margin-left: 15px") Created by: #[a(href=note.userurl) #{note.createdby}] on #[ #{note.created}]
+        p(style="margin-left: 15px") Created by: #[a(href='/users/'+note.createdby._id) #{note.createdby.name}] on #[ #{note.created}]
