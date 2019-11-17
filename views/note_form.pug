@@ -7,13 +7,22 @@ block content
         label(for='summary') Title:
         input#summary.form-control(type='text' placeholder='Title' name='summary' required='true' value=(undefined===note ? '' : note.summary) )
         label(for='message') Details:
-        textarea#summary.form-control(type='textarea' placeholder='Leave a message!' name='message' rows='3' required='true' value=(undefined===note ? '' : note.message) )
+        textarea#message.form-control(type='textarea' placeholder='Leave a message!' name='message' rows='3' required='true' ) #{undefined===note ? '' : note.message}
         label(for='createby') Author:
         select#createby.form-control(type='select' placeholder='Select author' name='createby' required='true' )
           for user in users
-            option(
-              value=user._id
-            ) #{user.name}
+            if note
+              option(
+                value=user._id
+                selected=(
+                  user._id.toString()==note.createdby._id
+                  || user._id.toString()==note.createdby
+                ) ? 'selected' : false
+              ) #{user.name}
+            else
+              option(value=user._id) #{user.name}
+        input#created.form-control(type='hidden' name='created' value=(underfined===note ? '' : note.created))
+        input#_id.form-control(type='hidden' name='_id' value=(underfined===note ? '' : note._id))
     button.btn.btn-primary(type='submit') Submit
   if errors
     ul

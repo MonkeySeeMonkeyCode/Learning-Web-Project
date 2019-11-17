@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  h2=title
+
+  p(style="margin-left: 15px") Name: #{user.name}
+  p(style="margin-left: 15px") Nickname: #{user.nickname}
+  br
+  p(style="margin-left: 15px") ID: #{user._id}
+  p(style="margin-left: 15px") Created: #{user.created}
+  //- p(style="margin-left: 15px") Tenure: #{user.sincecreated}
+  p(style="margin-left: 15px") Active: #{user.active}
+
+  hr
+  p Do you really want to delete this User?
+
+  form(method='POST' action='')
+    div.form-group
+      input#userid.form-control(type='hidden', name='userid', required='true', value=user._id)
+
+    button.btn.btn-primary(type='submit') Delete User?
+  

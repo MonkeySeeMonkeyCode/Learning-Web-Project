@@ -23,7 +23,7 @@ router.get('/:id', note_controller.note_detail);
 router.get('/:id/delete', note_controller.note_delete_get);
 
 /* POST delete notes form */
-router.post('/:id/delete', note_controller.note_create_post);
+router.post('/:id/delete', note_controller.note_delete_post);
 
 /* GET update notes form */
 router.get('/:id/update', note_controller.note_update_get);

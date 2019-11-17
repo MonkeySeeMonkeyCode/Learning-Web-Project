@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  h2=title 
+
+  p(style="margin-left: 15px") Title: #{note.summary}
+  p(style="margin-left: 15px") Summary: #{note.message}
+  p(style="margin-left: 15px") Created by: #[a(href='/users/'+note.createdby._id) #{note.createdby.name}] on #[ #{note.created}]
+
+  hr
+  p Do you really want to delete this Note?
+
+  form(method='POST' action='')
+    div.form-group
+      input#noteid.form-control(type='hidden', name='noteid', required='true', value=note._id)
+
+    button.btn.btn-primary(type='submt') Delete Note?

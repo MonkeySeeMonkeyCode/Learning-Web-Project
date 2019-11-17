@@ -11,6 +11,7 @@ block content
       input#nickname.form-control(type='text' placeholder ='Nickname' name='nickname' required='true' value=(undefined===user ? '' : user.nickname))
 
       input#created.form-control(type='hidden' name='created' value=(undefined===user ? '' : user.created))
+      input#_id.form-control(type='hidden' name='_id' value=(undefined===user ? '' : user._id))
       //- input#active.form-control(type='hidden' name='active' value=(undefined===user ? '' : true))
       //- need to look up how to pass booleans
 

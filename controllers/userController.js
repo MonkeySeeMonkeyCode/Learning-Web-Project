@@ -84,12 +84,34 @@ exports.user_create_post = [
 
 // display user delete form on GET
 exports.user_delete_get = function(req, res) {
-    res.send('to impliment user delete GET');
+    User.findById(req.params.id)
+    .exec(function (err, user) {
+        if (err) {
+            return next(err);
+        }
+        if (user==null) {//no result
+            res.redirect('/users');
+        }
+        // success so render
+        res.render('user_delete', { title: 'Delete User', user: user});
+    });
 };
 
 // handle user delete on POST
 exports.user_delete_post = function(req, res) {
-    res.send('to impliment user delete POST');
+    User.findById(req.body.userid)
+    .exec(function (err, user) {
+        if (err) {
+            next(err);
+        }
+        User.findByIdAndRemove(req.body.userid, function deleteUser(err) {
+            if (err) {
+                return next(err);
+            }
+            // success go back to user list
+            res.redirect('/users');
+        })
+    });
 };
 
 // display user update form on GET
@@ -138,7 +160,7 @@ exports.user_update_post = [
                     nickname: req.body.nickname,
                     created: req.body.created,
                     active: true, // need to look up how to pass booleans, for now will hard code it
-                    _id: req.params.id // need to use old id so new id wont be assigned
+                    _id: req.body._id // need to use old id so new id wont be assigned
                 }
                 );
             User.findByIdAndUpdate(req.params.id, user, {}, function (err) {
